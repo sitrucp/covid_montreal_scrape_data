@@ -8,7 +8,13 @@ A web server based cron job is employed to retrieve and transform the Quebec Hea
 
 The Python script uses BeautifulSoup4, Requests and Pandas to retrieve and transform webpage table data and results in a json data file "montreal_confirmed_cases.json" which is the data source for the Leaflet choropleth map.
 
-More details on Leaflet map visualization are here: <a href ="https://github.com/sitrucp/canada_covid_health_regions">https://github.com/sitrucp/canada_covid_health_regions</a>
+More details on this web scraping and the Leaflet map visualization can be found:
+
+Blog post describing the code and background in bit more detail <a href ="https://009co.com/?p=1009">Scraping public health web page to get data</a>
+
+Blog post describing the code and background in bit more detail <a href ="https://009co.com/?p=963">Choropleth map of Canada COVID-19 cases by health region using Leaflet and D3</a>
+
+Github repository <a href ="https://github.com/sitrucp/canada_covid_health_regions">https://github.com/sitrucp/canada_covid_health_regions</a>
 
 
 

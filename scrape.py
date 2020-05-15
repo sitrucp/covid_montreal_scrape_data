@@ -57,17 +57,17 @@ def main():
     # if new is diff from prev, update files and upload to aws
     if str_total_case_prev == str_total_case_new:
         # create result string to print to cron log
-        scrape_result = 'no change, case total is still same as prev case total: ' + str_total_case_prev
+        scrape_result = 'no change, case total is still same as prev case total: ' + str(str_total_case_prev)
     else:
         # create result string to print to cron log
-        scrape_result = 'new cases found: ' + str_total_case_new + ' prev case total: ' + str_total_case_prev
+        scrape_result = 'new cases found: ' + str(str_total_case_new) + ' prev case total: ' + str(str_total_case_prev)
         # transform pandas dataframe into dictionary to write as json
         json_table = df_table_data_final.to_dict('records')
         # write new montreal covid_data to json file
         with open(os.path.join(upload_path, 'montreal_covid_data.json'), 'w') as f:
             f.write('var covid_data = \n')
             json.dump(json_table, f, ensure_ascii=True)
-            # write today's date to use in index page as last updated date
+        # write today's date to use in index page as last updated date
         with open(os.path.join(upload_path, 'last_update_date.json'), 'w') as f:
             f.write('var last_update_date = \n')
             json.dump(todays_date, f)

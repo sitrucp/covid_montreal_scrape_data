@@ -24,6 +24,8 @@ def main():
     # get lookup file to join to web scrape data
     df_montreal_regions_lookup = pd.read_csv(os.path.join(script_dir, 'montreal_regions_lookup.csv'))
 
+#with open(os.path.join(upload_path, 'sirpattweets.json'), 'w', encoding='utf8') as file:
+    
     # get prev case total to compare to new case total
     with open(os.path.join(upload_path, 'montreal_covid_data.json')) as f:
         string = f.read()

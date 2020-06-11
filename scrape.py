@@ -23,8 +23,6 @@ def main():
     # get lookup file to join to web scrape data
     df_montreal_regions_lookup = pd.read_csv(os.path.join(script_dir, 'montreal_regions_lookup.csv'), encoding='utf8')
 
-#with open(os.path.join(upload_path, 'sirpattweets.json'), 'w', encoding='utf8') as file:
-    
     # get prev case total to compare to new case total
     with open(os.path.join(upload_path, 'montreal_covid_data.json'), 'r',encoding='utf8') as f:
         string = f.read()
@@ -35,7 +33,6 @@ def main():
     str_total_case_prev = df_total_row['case_count'].values[0]
 
     # get health montreal webpage html
-    #url = 'https://santemontreal.qc.ca/en/public/coronavirus-covid-19/'
     url = 'https://santemontreal.qc.ca/en/public/coronavirus-covid-19/situation-of-the-coronavirus-covid-19-in-montreal/'
 
     page = requests.get(url)
@@ -47,7 +44,6 @@ def main():
     # read table into pandas dataframe
     df_table_data_all_cols = pd.read_html(str(table))[0]
 
-    print(df_table_data_all_cols)
     # rename columns
     df_table_data_all_cols.columns = ['region_name', 'case_count','case_percent','case_per_100k','mort_count', 'mort_per_100k']
     df_table_data = df_table_data_all_cols[['region_name','case_count','case_percent','case_per_100k','mort_count', 'mort_per_100k']]

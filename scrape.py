@@ -21,12 +21,12 @@ todays_date = datetime.now(timezone('US/Eastern')).strftime('%Y-%m-%d %I:%M %p')
 
 def main():
     # get lookup file to join to web scrape data
-    df_montreal_regions_lookup = pd.read_csv(os.path.join(script_dir, 'montreal_regions_lookup.csv'))
+    df_montreal_regions_lookup = pd.read_csv(os.path.join(script_dir, 'montreal_regions_lookup.csv'), encoding='utf8')
 
 #with open(os.path.join(upload_path, 'sirpattweets.json'), 'w', encoding='utf8') as file:
     
     # get prev case total to compare to new case total
-    with open(os.path.join(upload_path, 'montreal_covid_data.json')) as f:
+    with open(os.path.join(upload_path, 'montreal_covid_data.json'), 'r',encoding='utf8') as f:
         string = f.read()
         string = string.replace('var covid_data = ', '')
         json_string = json.loads(string)
@@ -69,11 +69,11 @@ def main():
         # transform pandas dataframe into dictionary to write as json
         json_table = df_table_data_final.to_dict('records')
         # write new montreal covid_data to json file
-        with open(os.path.join(upload_path, 'montreal_covid_data.json'), 'w') as f:
+        with open(os.path.join(upload_path, 'montreal_covid_data.json'), 'w', encoding='utf8') as f:
             f.write('var covid_data = \n')
             json.dump(json_table, f, ensure_ascii=True)
         # write today's date to use in index page as last updated date
-        with open(os.path.join(upload_path, 'last_update_date.json'), 'w') as f:
+        with open(os.path.join(upload_path, 'last_update_date.json'), 'w', encoding='utf8') as f:
             f.write('var last_update_date = \n')
             json.dump(todays_date, f)
         upload_to_aws()

@@ -7,7 +7,6 @@ from pytz import timezone
 import pandas as pd
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
-from datetime import datetime
 import os
 from os import listdir
 from os.path import isfile, join
@@ -36,16 +35,20 @@ def main():
     str_total_case_prev = df_total_row['case_count'].values[0]
 
     # get health montreal webpage html
-    url = 'https://santemontreal.qc.ca/en/public/coronavirus-covid-19/'
+    #url = 'https://santemontreal.qc.ca/en/public/coronavirus-covid-19/'
+    url = 'https://santemontreal.qc.ca/en/public/coronavirus-covid-19/situation-of-the-coronavirus-covid-19-in-montreal/'
+
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     # get all tables on webpage
     tables = soup.find_all('table')
     # select 4th table in list of tables on webpage
-    table = tables[3]
+    table = tables[2]
     # read table into pandas dataframe
     df_table_data_all_cols = pd.read_html(str(table))[0]
-    # rename columns 
+
+    print(df_table_data_all_cols)
+    # rename columns
     df_table_data_all_cols.columns = ['region_name', 'case_count','case_percent','case_per_100k','mort_count', 'mort_per_100k']
     df_table_data = df_table_data_all_cols[['region_name','case_count','case_percent','case_per_100k','mort_count', 'mort_per_100k']]
 
